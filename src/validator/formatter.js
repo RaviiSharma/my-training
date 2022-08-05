@@ -3,7 +3,7 @@
 
 function trim(){
 
-    let text="      Hello i Am  Abhishek kumar         "
+    let text="      Hello i Am  Ravi kumar        "
     console.log(text)
     console.log("----->Trim")
     let result = text.trim();
@@ -12,7 +12,7 @@ function trim(){
 }
 function upperCase(){
 
-    let text="Hello i Am  Abhishek kumar"
+    let text="Hello i Am  Ravi kumar"
     console.log("----->UpperCase")
     let res=text.toUpperCase();
     console.log(res)
@@ -20,7 +20,7 @@ function upperCase(){
 }
 function lowerCase(){
 
-    let text="HELLO I AM ABHISHEK KUMAR "
+    let text="HELLO I AM Ravi KUMAR "
     console.log("----->lowerCase")
     let sol=text.toLowerCase()
     console.log(sol)

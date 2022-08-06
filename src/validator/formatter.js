@@ -12,7 +12,7 @@ function trim(){
 }
 function upperCase(){
 
-    let text="Hello i Am  Ravi kumar"
+    let text="Hello i Am  ravi kumar"
     console.log("----->UpperCase")
     let res=text.toUpperCase();
     console.log(res)

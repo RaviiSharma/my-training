@@ -190,49 +190,36 @@ module.exports = router;
 
 /////////////////-----------------------------//////////////
 
-let persons = [
+let person=[
     {
-      name : "PK",
-      age : 10,
-      votingstatus : false
-    },
-    {
-        name : "Sk",
-        age : 20,
-        votingstatus : false
-    },
-    {
-        name : "AA",
-        age : 70,
-        votingstatus : false
-    },
-    {
-        name : "SC",
-        age : 5,
-        votingstatus : false
-    },
-    {
-        name : "HQ",
-        age : 40,
-        votingstatus : false
+        name:"pk",
+        age:10,
+        votingStatus:false
+    },{
+        name:"sk",
+        age:10,
+        votingStatus:false
+    },{
+        name:"AA",
+        age:70,
+        votingStatus:false
+    },{
+        name:"SC",
+        age:5,
+        votingStatus:false
+    },{
+        name:"HO",
+        age:40,
+        votingStatus:false
     }
 ]
-router.post("/persons", function(req,res){
 
- let votingAge = req.query.votingAge
-
- let result = []
-let  flag = false
- var id 
- for(let i =0; i<persons.length;i++){
-     id = persons[i]
-     if(id.age>=18  && votingAge >=18){
-        id.votingstatus=true
-            result.push(id) 
-    }
- }
-    return  res.send({ data : result , status : true})
+router.post("/votingStatus" , function(req, res) {
+    const votingAge=req.query.votingAge;
+    const votingPerson=person.filter(ele=>ele.age>votingAge? ele.votingStatus=true : ele.votingStatus=false)
+    res.send(votingPerson)
 })
+
 
 
  module.exports = router;

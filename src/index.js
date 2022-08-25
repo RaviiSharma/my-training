@@ -1,4 +1,5 @@
 const express = require('express');
+const moment = require('moment');
 const bodyParser = require('body-parser');
 const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
@@ -21,6 +22,25 @@ app.use (
   }
   );
 
+  app.use(
+
+    function (req, res, next) {
+        let Date = moment().format('DD-MM-YYYY')
+        console.log(Date)
+        let ip = req.ip
+        let url = req.originalUrl
+        //console.log(ip)
+        console.log(url + ip )
+        return res.send({ Date: Date })
+    }
+);
+app.use(
+    function(req,res,next){
+        console.log("INSIDE GLOBAL MV");
+        next();
+    }
+
+);
 app.use('/', route);
 
 

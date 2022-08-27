@@ -5,7 +5,7 @@ const userModel = require("../models/userModel");
   Read all the comments multiple times to understand why we are doing what we are doing in login api and getUserData api
 */
 const createUser = async function (abcd, xyz) {
-  //You can name the req, res objects anything.
+  //You can name the req, res objects anything. // like async function (req,res)
   //but the first parameter is always the request 
   //the second parameter is always the response
   let data = abcd.body;

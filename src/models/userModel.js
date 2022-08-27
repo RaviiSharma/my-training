@@ -1,24 +1,23 @@
 const mongoose = require('mongoose');
-const { stringify } = require('querystring');
 
-const userSchema = new mongoose.Schema({
-    //write the Schema content
-    name :String,
-    balance:{
-        type:Number,
-        default:100
+const userSchema = new mongoose.Schema( {
+    
+    name : String,
+    balance : {
+        type : Number,
+        default : 100
     },
-    address:String,
-    age:Number,
-    gender:{
-        type:String,
-        enum:["male","female","other"]
+    address : String,
+    age : Number,
+    gender : {
+        type : String,
+        enum : ["male","female","others"]
     },
-    isFreeAppUser:{
-        type:Boolean,
-        default:false
+    isFreeAppUser : {
+        type : Boolean,
+        default : false
     }
 
-},{timestamps:true});
+}, { timestamps: true });
 
-module.exports = mongoose.model('newUser',userSchema)//users
+module.exports = mongoose.model('User1', userSchema)

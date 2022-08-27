@@ -1,11 +1,9 @@
-const req = require ("express/lib/request")
-const productModel = require("../models/productModel")
 
-const createProduct = async function(req,res){
-    let data = req.body
-    let product = await productModel.create(data)
+const ProductModel = require('../models/productModel')
 
-    res.send({msg:product})
+const createProduct = async function (req,res){
+    let product = await ProductModel.create(req.body)
+    res.send({product : product})
 }
 
-module.exports.createProduct= createProduct
+module.exports.createProduct = createProduct

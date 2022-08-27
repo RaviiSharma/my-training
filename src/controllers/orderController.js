@@ -1,48 +1,64 @@
-const req = require ("express/lib/request")
-const OrderModel = require("../models/orderModel")
-const UserModel = require("../models/userModel")
-const ProductModel = require("../models/productModel")
-const productModel = require("../models/productModel")
 
-const createOrder = async function(req,res){
-    let data = req.body
-    let user = data.userId
-    let product = data.productId
+const OrderModel = require('../models/orderModel');
+const productModel = require('../models/productModel');
+const ProductModel = require('../models/productModel')
+const UserModel = require('../models/userModel')
 
-    let user1 = await UserModel.findById(user)
-    if(!user1){
-        return res.send({msg:"Not a valid user id"})
-    }
-    let product1 = await ProductModel.findById(product)
-    if(!product1){
-        return res.send({msg:"Not a valid product id"})
-    }
-    if(req.isFreeAppUser){
-        data.amount = 0;
-        data.isFreeAppUser = req.isFreeAppUser
-        let orderCreated = await OrderModel.create(data)
-        res.send({msg: orderCreated })
-    }
-    else {
-        let productPrice = await productModel.findById({_id: data.productId})
-        let productPrice1 = productPrice.price
-        let balance = await UserModel.findById({_id: data.userId})
-        if(productprice1<= balance.balance) {
-            let userBalance = await UserModel.findOneAndUpdate(
-                {_id: data.userId},
-                {$inc:{balance: - productPrice1} },
-                {new:true}
+const createOrder = async function (req,res){
+    let data = req.body;
+    let uId = data.userId;
+    let pId = data.productId;
+    let freeAppUser = req.headers.isfreeappuser;
+    //console.log(freeAppUser);
 
+    let user = await UserModel.findById(uId);
+    let product = await ProductModel.findById(pId);
+
+    if(data.hasOwnProperty("userId") == false){
+        res.send({error: "userId is required"})
+    }
+    else if(!user){
+        res.send({error: "Wrong userId is entered"})
+    }
+
+    if(data.hasOwnProperty("productId") == false){ //not working 
+        res.send({error: "productId is required"})
+    }
+    else if(!product){
+        res.send({error: "wrong productId is enetered"})
+    }
+
+    let productDetail = await productModel.findById(pId);
+    //console.log(productDetail)
+    let priceValue = productDetail.price
+    //console.log(priceValue)
+    let userDetail = await UserModel.findById(uId)
+    //console.log(userDetail)
+    let userBalance = userDetail.balance;
+    //console.log(userBalance)
+
+    if(freeAppUser === "false"){
+        if(userBalance > priceValue){
+            let updatedBalance = await UserModel.findByIdAndUpdate(
+                {_id: uId},
+                {$inc: {balance: -priceValue} },
+                {new: true}
             )
-            data.amount = productPrice1
-            data.isFreeAppUser = req.isFreeAppUser
-            let orderCreated = await OrderModel.create(data)
-            res.send({msg: orderCreated })
+            data.amount = priceValue;
+            data.isFreeAppUser = false
+            let orderDetail = await OrderModel.create(data)
+            res.send({order: orderDetail})
         }
-        else {
-            res.send({Error:"Insufficient balance"})
+        else{
+            res.send({error: "insufficient balance"})
         }
-    } 
+    }
+    else{
+        data.amount = 0;
+        data.isFreeAppUser = true
+        let orderDetails = await OrderModel.create(data);
+        res.send({order: orderDetails})
+    }
 }
 
-module.exports.createOrder = createOrder
+module.exports.createOrder = createOrder;

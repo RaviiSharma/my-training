@@ -1,28 +1,23 @@
-const mongoose = require('mongoose');
-const ObjectId= mongoose.Schema.Types.ObjectId;
-const OrderController= require("../controllers/orderController")
 
-const date = new Date();
-const dateStr = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
-const orderSchema = new mongoose.Schema({
-    userId: {
-        type:ObjectId,
-        ref:"newUser"
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId
+
+const orderSchema = new mongoose.Schema( {
+    userId : {
+        type : ObjectId,
+        ref : "User1"
     },
-    productId:{
-        type:ObjectId,
-        ref:"newProduct"
+    productId : {
+        type : ObjectId,
+        ref : "Product"
     },
-    amount:Number,
-    isFreeAppUser:{
-        type:Boolean,
-        default:false
-    },
-    date:{
-        type:String,
-        default:dateStr
+    amount : { type : Number },
+    isFreeAppUser : { type : Boolean },
+    date : {
+        type : Date,
+        default : Date.now
     }
 
-},{timestamps:true});
+}, { timestamps: true });
 
-module.exports = mongoose.model('newOrder', orderSchema)
+module.exports = mongoose.model('Order', orderSchema)

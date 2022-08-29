@@ -3,7 +3,7 @@ const userModel = require('../models/userModel')
 
 const authenticate = async function(req, res, next) {
     let token = req.headers["x-auth-token"]
-    
+
     if(!token) return res.send({status: false, msg: "token must be provided"})
     
     let verifiedToken = jwt.verify(token , "ravikumarsharma")   
@@ -13,7 +13,6 @@ const authenticate = async function(req, res, next) {
     console.log(verifiedToken)
     next()
 }
-
 
 const authorize = async function(req, res, next) {
     let id = req.params.userId

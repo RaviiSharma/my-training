@@ -17,7 +17,7 @@ router.get("/users/:userId", MiddleWare.authenticate, MiddleWare.authorize, User
 
 router.put("/users/:userId", MiddleWare.authenticate, MiddleWare.authorize, UserController.updateUserData)
 
-router.delete('/users/:userId',MiddleWare.authenticate, MiddleWare.authorize, UserController.deleteUserData)
+router.put('/users/:userId',MiddleWare.authenticate, MiddleWare.authorize, UserController.deleteUserData)
 
 
 module.exports = router;

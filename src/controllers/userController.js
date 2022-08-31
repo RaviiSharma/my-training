@@ -34,8 +34,8 @@ const userLogin = async function (req, res) {
 
       res.status(200).send({ status: true, msg: userToken }); //200 OK success status response code indicates that the request has succeeded.
     } else {
-      res.status(400).send({ status: false, error: "Please provide user inputs" }); //400 Bad request the server cannot or will not process the (invalid request)
-    }                                                                             //  request due to something that is perceived to be a client error.
+      res.status(400).send({ status: false, error: "Please provide user inputs" }); //400 Bad request the server cannot or will not process the (invalid request).
+    }                                                                             
   } catch (error) {
     res.status(500).send({ error: error.message }); //500 This error is usually returned by the server when no other error code is suitable.
   }
